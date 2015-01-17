@@ -6,21 +6,42 @@
 <h4>@SR.Repository_ListTitle</h4>
 <div class="row">
     <div class="col-sm-8">
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-heading">@SR.Repository_Collaborations</li>
+        <div class="list-group">
+            <div class="list-group-item">@SR.Repository_Collaborations</div>
             @foreach (var repo in Model.Collaborations)
             {
-                <li class="list-group-item">
-                    <div>@Html.ActionLink(repo.Name, "Tree", Html.OverRoute(new { repo.Name }))</div>
-                    <div>@repo.Description</div>
-                </li>
+                <div class="list-group-item">
+                    <div class="h4">
+                        <ul class="nav nav-pills repo-stats pull-right">
+                            <li class="star">
+                                <a href="#">
+                                    <span class='fa fa-star'></span>0
+                                </a>
+                            </li>
+                            <li class="fork">
+                                <a href="#">
+                                    <span class='fa fa-code-fork'></span>0
+                                </a>
+                            </li>
+                        </ul>
+                        <i class="fa @(repo.IsPrivate ? "fa-lock" : "fa-globe")" title='私有仓库'></i>
+                        <span class="project-title" style="line-height: 20px">
+                            @Html.ActionLink(repo.Name, "Tree", Html.OverRoute(new { repo.Name }))
+                        </span>
+                    </div>
+                    <p>@repo.Description</p>
+                    <span class='create-time'>
+                        最近更新:
+                        <span>7天前</span>
+                    </span>
+                </div>
             }
-        </ul>
+        </div>
     </div>
 
     <div class="col-sm-4">
         <ul class="list-group">
-            <li class="list-group-item list-group-item-heading">@SR.Repository_PopularRepositories</li>
+            <li class="list-group-item">@SR.Repository_PopularRepositories</li>
             @foreach (var repo in Model.Repositories)
             {
                 <li class="list-group-item">

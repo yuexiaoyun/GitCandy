@@ -20,7 +20,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">@SR.Shared_AppTitle</a>
+                <a class="navbar-brand" href="/">@SR.Shared_AppTitle<i class="fa fa-git-square"></i></a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -36,8 +36,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (token == null)
                     {
-                        <li class="">@Html.ActionLink(SR.Shared_Register, "Create", "Account")</li>
-                        <li class="">@Html.ActionLink(SR.Shared_Login, "Login", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
+                        <li>@Html.ActionLink(SR.Shared_Register, "Create", "Account")</li>
+                        <li>@Html.ActionLink(SR.Shared_Login, "Login", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
                     }
                     else
                     {
@@ -49,11 +49,6 @@
                         <li>
                             <a href="@Url.Action("Detail", "Account", new { name = token.Username })" class="has_bottom_tooltip" title="我的资料">
                                 <i class="fa fa-user"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/notifications" class="has_bottom_tooltip" id="notify_tip" title="0 未读通知">
-                                <i class="fa fa-envelope"></i>
                             </a>
                         </li>
                         <li>
