@@ -9,7 +9,9 @@ namespace GitCandy
         {
             bundles.Add(new StyleBundle("~/bundles/css").Include(
                         "~/Content/bootstrap.css",
+                        "~/Content/bootstrap-theme.css",
                         "~/Content/bootstrapSwitch.css",
+                        "~/Content/font-awesome.css",
                         "~/Content/highlight.css",
                         "~/Content/site.css"
                         ));

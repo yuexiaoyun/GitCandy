@@ -10,61 +10,88 @@
     @Styles.Render("~/bundles/css")
 </head>
 <body>
-    <div class="navbar navbar-static-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="brand" href="~/">@SR.Shared_AppTitle <span class="label">Alpha</span></a>
-                <div class="nav-collapse collapse">
-                    <ul class="nav nav-pills">
-                        <li class="divider-vertical"></li>
-                        <li class="">@Html.ActionLink(SR.Shared_Repositories, "Index", "Repository")</li>
-                        <li class="">@Html.ActionLink(SR.Shared_About, "About", "Home")</li>
 
-                        @if (token != null && token.IsSystemAdministrator)
-                        {
-                            <li class="divider-vertical"></li>
-                            <li class="">@Html.ActionLink(SR.Shared_Users, "Index", "Account")</li>
-                            <li class="">@Html.ActionLink(SR.Shared_Teams, "Index", "Team")</li>
-                            <li class="">@Html.ActionLink(SR.Shared_Settings, "Edit", "Setting")</li>
-                        }
-                    </ul>
-
-                    <ul class="nav nav-pills pull-right">
-                        @if (token == null)
-                        {
-                            <li class="">@Html.ActionLink(SR.Shared_Register, "Create", "Account")</li>
-                            <li class="">@Html.ActionLink(SR.Shared_Login, "Login", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
-                        }
-                        else
-                        {
-                            <li class="">@Html.ActionLink(token.Nickname, "Detail", "Account", new { name = token.Username }, null)</li>
-                            <li class="">@Html.ActionLink(SR.Shared_Logout, "Logout", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
-                        }
-                    </ul>
-                </div>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">@SR.Shared_AppTitle</a>
             </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink(SR.Shared_Repositories, "Index", "Repository")</li>                    
+                    @if (token != null && token.IsSystemAdministrator)
+                    {                       
+                        <li class="">@Html.ActionLink(SR.Shared_Users, "Index", "Account")</li>
+                        <li class="">@Html.ActionLink(SR.Shared_Teams, "Index", "Team")</li>
+                        <li class="">@Html.ActionLink(SR.Shared_Settings, "Edit", "Setting")</li>
+                    }
+                    <li>@Html.ActionLink(SR.Shared_About, "About", "Home")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (token == null)
+                    {
+                        <li class="">@Html.ActionLink(SR.Shared_Register, "Create", "Account")</li>
+                        <li class="">@Html.ActionLink(SR.Shared_Login, "Login", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery }, null)</li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="@Url.Action("Create", "Repository")" class="has_bottom_tooltip" title="@SR.Shared_Create">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Detail", "Account", new { name = token.Username })" class="has_bottom_tooltip" title="我的资料">
+                                <i class="fa fa-user"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/notifications" class="has_bottom_tooltip" id="notify_tip" title="0 未读通知">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Logout", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery })" class="has_bottom_tooltip" rel="nofollow" title="@SR.Shared_Logout">
+                                <i class="fa fa-sign-out"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Detail", "Account", new { name = token.Username })" class="profile-pic">
+                                <img alt="105860_yuexiaoyun" src="http://git.oschina.net/uploads/60/105860_yuexiaoyun.jpg" />
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div><!--/.nav-collapse -->
         </div>
-    </div>
+    </nav>
 
     <div class="container">
         @RenderBody()
     </div>
 
-    <div class="container footer">
-        <div class="page-divider"></div>
-        <div class="clearfix">
-            <div class="pull-right btn-group dropup">
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">@ViewBag.Language <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li>@Html.CultureActionLink("zh-cn")</li>
-                    <li>@Html.CultureActionLink("en-us")</li>
-                    <li>@Html.CultureActionLink("fr-fr")</li>
-                </ul>
+    <footer class="footer">
+        <div class="container">
+            <div class="clearfix">
+                @*<div class="pull-right btn-group dropup">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">@ViewBag.Language <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.CultureActionLink("zh-cn")</li>
+                        <li>@Html.CultureActionLink("en-us")</li>
+                        <li>@Html.CultureActionLink("fr-fr")</li>
+                    </ul>
+                </div>*@
+                <div class="pull-left"><p class="muted" title="@Profiler.Current.Elapsed">&copy; 2013-@DateTime.Now.Year Aimeast. All rights reserved.</p></div>
             </div>
-            <div class="pull-left"><p class="muted" title="@Profiler.Current.Elapsed">&copy; 2013-@DateTime.Now.Year Aimeast. All rights reserved.</p></div>
         </div>
-    </div>
-
+    </footer>
+    
     @Scripts.Render("~/bundles/js")
     @RenderSection("scripts", required: false)
 </body>

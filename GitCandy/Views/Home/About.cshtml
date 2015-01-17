@@ -2,7 +2,9 @@
     ViewBag.Title = string.Format(SR.Shared_TitleFormat, SR.Home_AboutTitle);
 }
 
-<h4>@SR.Home_AboutTitle</h4>
+<div class="page-header">
+    <h1>@SR.Home_AboutTitle</h1>
+</div>
 
 <div id="md">
 @Html.Raw(SR.Home_AboutDescription)
